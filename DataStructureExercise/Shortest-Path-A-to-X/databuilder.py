@@ -3,24 +3,27 @@ from Data import HashTownData
 class Map_of_town:
 
     def create_map(self):
-        home = HashTownData(1,"Home")
-        store_A = HashTownData(1,"store A")
-        store_B = HashTownData(1,"store B")
-        School = HashTownData(1,"school")
-        Interception = HashTownData(1,"interception")
+        home = HashTownData("Home")
+        store_A = HashTownData("Store A")
+        store_B = HashTownData("Store B")
+        School = HashTownData("School")
+        Interception = HashTownData("Interception")
 
 
-        home.set_val(0,store_A)
-        home.set_val(1,store_B)
-        home.set_val(2,Interception)
-        store_A.set_val(0,home)
-        store_A.set_val(1,store_B)
-        store_B.set_val(0,School)
-        School.set_val(0,store_B)
-        School.set_val(1,Interception)
-        Interception.set_val(0, School)
+        home.add_connection(store_A)
+        home.add_connection(store_B)
+        home.add_connection(Interception)
+
+        store_A.add_connection(home)
+        store_A.add_connection(store_B)
+        store_B.add_connection(School)
+
+        School.add_connection(store_B)
+        School.add_connection(Interception)
+
+        Interception.add_connection(School)
     
-        list_of_places = [home,store_A, store_B, School, Interception]
-        return list_of_places
+        return [home,store_A, store_B, School, Interception]
+
     
         
